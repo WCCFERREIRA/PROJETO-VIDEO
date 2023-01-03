@@ -1,5 +1,5 @@
 from flask import Flask , render_template, redirect, request, flash
-from flask_mail import Mail, message
+from flask_mail import Mail, Message
 from config import email, senha
 
 app = Flask(__name__)
@@ -15,7 +15,6 @@ mail_settings = {
 }
 
 app.config.update(mail_settings)
-
 mail = Mail(app)
 
 class Contato:
@@ -37,7 +36,7 @@ def send():
       request.form["mensagem"]
     )
 
-    msg = message(
+    msg = Message(
       subject = f'{formContato.nome} te enviou uma mensagem no portfolio',
       sender = app.config.get("MAIL_USERNAME"),
       recipients = ['wccferreira@gmail.com', app.config.get("MAIL_USERNAME")],
